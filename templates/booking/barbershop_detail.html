@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ barbershop.name }} - Barbershop Booking{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Barbershop Header -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h1><i class="fas fa-store me-3"></i>{{ barbershop.name }}</h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-info-circle me-2"></i>Information</h5>
+                            <div class="info-item mb-2">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ barbershop.address }}</span>
+                            </div>
+                            <div class="info-item mb-2">
+                                <i class="fas fa-phone"></i>
+                                <span>{{ barbershop.phone_number }}</span>
+                            </div>
+                            <div class="info-item mb-2">
+                                <i class="fas fa-envelope"></i>
+                                <span>{{ barbershop.email }}</span>
+                            </div>
+                            <div class="info-item mb-2">
+                                <i class="fas fa-clock"></i>
+                                <span>{{ barbershop.opening_time|time:"H:i" }} - {{ barbershop.closing_time|time:"H:i" }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            {% if barbershop.description %}
+                            <h5><i class="fas fa-align-left me-2"></i>About</h5>
+                            <p>{{ barbershop.description }}</p>
+                            {% endif %}
+                            <div class="mt-4">
+                                {% if user.is_authenticated %}
+                                <a href="{% url 'book_appointment' barbershop.id %}" class="btn btn-accent btn-lg">
+                                    <i class="fas fa-calendar-plus me-2"></i>Book Appointment
+                                </a>
+                                {% else %}
+                                <a href="{% url 'login' %}" class="btn btn-accent btn-lg">
+                                    <i class="fas fa-calendar-plus me-2"></i>Book Appointment
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <h2 class="mb-4"><i class="fas fa-cut me-2"></i>Our Services</h2>
+            {% if services %}
+            <div class="row">
+                {% for service in services %}
+                <div class="col-md-6 mb-3">
+                    <div class="service-card">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5 class="mb-1">{{ service.name }}</h5>
+                                <p class="text-muted mb-2">{{ service.description }}</p>
+                                <small class="service-duration">
+                                    <i class="fas fa-clock me-1"></i>{{ service.duration_minutes }} minutes
+                                </small>
+                            </div>
+                            <div class="text-end">
+                                <div class="service-price">${{ service.price }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-cut fa-3x text-muted mb-3"></i>
+                    <h5>No Services Listed</h5>
+                    <p class="text-muted">This barbershop hasn't added their services yet.</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Barbers Section -->
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h2 class="mb-4"><i class="fas fa-users me-2"></i>Our Barbers</h2>
+            {% if barbers %}
+            <div class="row">
+                {% for barber in barbers %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-user-circle fa-4x text-primary mb-3"></i>
+                            <h5>{{ barber.user.first_name }} {{ barber.user.last_name }}</h5>
+                            <p class="text-muted">{{ barber.experience_years }} years of experience</p>
+                            {% if barber.specialties %}
+                            <div class="mb-3">
+                                <small class="text-muted">Specialties:</small><br>
+                                <span class="badge bg-secondary">{{ barber.specialties }}</span>
+                            </div>
+                            {% endif %}
+                            <div class="status-badge status-confirmed">
+                                <i class="fas fa-check-circle me-1"></i>Available
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                    <h5>No Barbers Available</h5>
+                    <p class="text-muted">This barbershop doesn't have any available barbers at the moment.</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="row mt-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <a href="{% url 'home' %}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left me-2"></i>Back to Home
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

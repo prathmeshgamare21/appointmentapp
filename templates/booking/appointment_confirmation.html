@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Appointment Confirmed{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <div class="card">
+        <div class="card-header text-center">
+          <h2><i class="fas fa-check-circle text-success me-2"></i>Appointment Confirmed</h2>
+        </div>
+        <div class="card-body">
+          <p class="lead">Thank you! Your appointment has been booked successfully.</p>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="p-3 border rounded">
+                <strong>Barbershop</strong>
+                <div>{{ appointment.barber.barbershop.name }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 border rounded">
+                <strong>Barber</strong>
+                <div>{{ appointment.barber.user.first_name }} {{ appointment.barber.user.last_name }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 border rounded">
+                <strong>Service</strong>
+                <div>{{ appointment.service.name }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 border rounded">
+                <strong>Date & Time</strong>
+                <div>{{ appointment.appointment_date }} at {{ appointment.appointment_time|time:"H:i" }}</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 border rounded">
+                <strong>Price</strong>
+                <div>${{ appointment.service.price }}</div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              {% if appointment.notes %}
+              <div class="p-3 border rounded">
+                <strong>Notes</strong>
+                <div>{{ appointment.notes }}</div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="mt-4 d-flex gap-2">
+            <a href="{% url 'my_appointments' %}" class="btn btn-primary">View My Appointments</a>
+            <a href="{% url 'home' %}" class="btn btn-outline-secondary">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

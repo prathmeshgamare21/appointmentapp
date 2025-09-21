@@ -1,0 +1,4 @@
+Django>=4.2,<5.0
+# On Windows, Django uses the system time zone database via tzdata
+# This ensures consistent timezone handling
+tzdata>=2023.3
