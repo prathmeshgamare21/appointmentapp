@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # BarberBook — Barbershop Appointment Booking (Django)
 
 A full-stack Django app for booking barbershop appointments with a clean, modern HTML/CSS (Bootstrap) frontend.
@@ -111,3 +112,7 @@ Customers are created automatically when a logged-in user books for the first ti
 - Multi-tenant support for many shops
 "# MARK42" 
 "# MARK42" 
+=======
+# appointmentapp
+appointment app for barbershops
+>>>>>>> cefe0846f1b9a5fcad481a56bb00194798c324a8
