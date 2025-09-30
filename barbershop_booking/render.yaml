@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: barbershop-booking
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn barbershop_booking.asgi:application
+    plan: free
